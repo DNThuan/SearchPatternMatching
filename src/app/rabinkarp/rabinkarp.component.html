@@ -1,0 +1,42 @@
+
+
+<body>
+    <div class="flex-container">
+        <div class="page1"> 
+            <h3>Input string</h3>
+            <input class="in-text" placeholder="Enter your text "  [(ngModel)]="text"> <br>        
+            <input class="in-pattern" placeholder="Enter your pattern "   [(ngModel)]="pattern"><br>
+            <button type="button" (click)="RaBinKarpAlgorithm(text,pattern)" class="btn btn-primary button-">Run</button>
+        </div>
+ 
+        <div class="page2"> 
+            <h3>Animation</h3>
+            <div class="out-index">
+                <label class="txt-total"> Total: {{SumIndex(result)}}  </label>
+                <p class="txt-index"> Index: </p>
+                <label class="print" >{{ArrayToString(result)}}</label>
+                
+            </div>           
+        </div>
+
+        <div class="page3"> 
+            <h3>Hash table</h3>
+            <table class="table">              
+                <tr>
+                  <th *ngFor = "let column of headers">
+                    {{column}}
+                  </th>
+                </tr>
+
+                <tr *ngFor="let row of Hash_txt">
+                  <td *ngFor ="let column of row">
+                    {{column}}
+                  </td>
+                </tr>
+              </table>
+        </div>
+    </div>
+   
+    
+</body>
+
