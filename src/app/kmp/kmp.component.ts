@@ -16,59 +16,54 @@ export class KmpComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  computeTemporaryArray(pattern: string[]){
-    const lps=[0]
-    let index=0
-    for (let i=1;i<pattern.length;){
-      if (pattern[i]==pattern[index]){
-        lps.push(index+1)
-        index++
-        i++
+  longestPrefix(pat: string){
+    var table=new Array(pat.length)
+    var maxPrefix=0
+    table[0]=0
+
+    for (var i=1;i<pat.length;i++){
+      while ( maxPrefix>0 && pat.charAt(i) !== pat.charAt(maxPrefix)){
+        maxPrefix=table[maxPrefix-1]
       }
-      else{
-        if (index!=0){
-          index=lps[index-1]
-        }
-        else{
-          lps[i]=0
-          i++
-        }
-      }
+      if (pat.charAt(maxPrefix)===pat.charAt(i))
+        maxPrefix++
+      table[i]=maxPrefix
     }
-    return lps
+    return table
   }
 
   KMPAlgorithm(txt:string,pat:string){
-    let array= new Array()
-    const textArr=txt.split('')
-    const patArr=pat.split('')
-    const lps=this.computeTemporaryArray(patArr)
-    let i=0
-    let j=0
-    while (i<textArr.length){
-      if (textArr[i]==patArr[j]){
+    var prefixes=this.longestPrefix(pat)
+    var matches=[]
+    var i=0
+    var j=0
+
+    while (i<txt.length){
+      if (txt.charAt(i)===pat.charAt(j)){
         i++
         j++
       }
-      if (j==patArr.length){
-        array.push(i-j)
-        j=lps[j-1]
+      if (j===pat.length){
+        matches.push(i-j)
+        j=prefixes[j-1]
       }
-      else if (i<textArr.length && pat[j]!=txt[i]) {
-        if (j!=0){
-          j=lps[j-1]
-        }
-        else{
+      else if (txt.charAt(i)!==pat.charAt(j)){
+        if (j!==0)
+          j=prefixes[j-1]
+        else
           i++
-        }
       }
     }
-    if (array.length!=0){
-      this.result=array
+
+
+
+
+    if (matches.length!=0){
+      this.result=matches
       this.check=true
     }
     else
-      this.result=['Dose not exist']
+      this.result=['Not exist']
   }
 
   SumIndex(arr:number[]){

@@ -1,16 +1,45 @@
 
-
 <body>
+  
+
     <div class="flex-container">
         <div class="page1"> 
             <h3>Input string</h3>
             <input class="in-text" placeholder="Enter your text "  [(ngModel)]="text"> <br>        
             <input class="in-pattern" placeholder="Enter your pattern "   [(ngModel)]="pattern"><br>
             <button type="button" (click)="RaBinKarpAlgorithm(text,pattern)" class="btn btn-primary button-">Run</button>
+            <button onClick="window.location.href=window.location.href" class="btn btn-primary button-">Refresh</button>
+            
+        <h2>Visualizer</h2>
+        
+        <div id="visualize">
+            <div class="ani-txt "  >
+              <th *ngFor = "let char of stringToChar(text); let i=index" >
+                <a >{{i}}</a>
+                <div class="square" id="postxt{{i}}"> 
+                  {{char}}
+                </div>
+              </th>
+            </div>
+
+           
+            <div class="rotate" [@myanimation] = "state" > 
+              <th *ngFor = "let char of stringToChar(pattern); let i=index"  >
+                <a >{{i}}</a>
+                <div class="square" id ="pospat{{i}}"> 
+                  {{char}}
+                </div>
+              </th> 
+            </div>
         </div>
+      </div>
+
+      
  
-        <div class="page2"> 
-            <h3>Animation</h3>
+
+        <div class="cell2"> 
+            <h3>Result</h3>
+
             <div class="out-index">
                 <label class="txt-total"> Total: {{SumIndex(result)}}  </label>
                 <p class="txt-index"> Index: </p>
@@ -18,10 +47,26 @@
                 
             </div>           
         </div>
+       
 
         <div class="page3"> 
             <h3>Hash table</h3>
-            <table class="table">              
+
+            <table class="table">
+              <tr>
+                  <th *ngFor = "let column of headers">
+                    {{column}}
+                  </th>
+              </tr>
+              <tr>
+                <td *ngFor="let column of Hash_pat">
+                    {{column}}  
+                </td>   
+              </tr> 
+
+            </table>
+
+            <table class="table">   
                 <tr>
                   <th *ngFor = "let column of headers">
                     {{column}}
@@ -32,7 +77,7 @@
                   <td *ngFor ="let column of row">
                     {{column}}
                   </td>
-                </tr>
+                </tr> 
               </table>
         </div>
     </div>
